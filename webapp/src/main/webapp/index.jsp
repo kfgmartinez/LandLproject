@@ -43,7 +43,7 @@
                         <div class="col-md-6">
                           <div class="left-text">
                             <h4>Services:</h4>
-                            <p>Have your pups play outside on our safe turf!.<br><br>Pups like the water? Have a dip with our friendly dog water park!<br><br>Hungry? We got food and drinks delivered by Luna!</p>
+                            <p>Haveeee your pups play outside on our safe turf!.<br><br>Pups like the water? Have a dip with our friendly dog water park!<br><br>Hungry? We got food and drinks delivered by Luna!</p>
                             <div class="primary-button">
                               <a href="#t3">Discover More</a>
                             </div>
