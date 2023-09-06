@@ -1,0 +1,24 @@
+- hosts: ansible
+  tasks:
+    - name: Remove image
+      community.docker.docker_image:
+        state: absent
+        name:  "name of your image"
+        tag: latest
+
+    - name: Build an image and push it to a private repo
+      community.docker.docker_image:
+        build:
+          path: /opt/docker #directory of your ansible files
+        name: "name of your image"
+        tag: latest #give a tag
+        push: false # set value to false or delete push key
+        source: build
+
+
+    - name: Tag and push to docker hub
+      community.docker.docker_image:
+        name: "yourimage:tag"
+        repository: dockerhubaccount/yourimage:tag
+        push: true
+        source: local

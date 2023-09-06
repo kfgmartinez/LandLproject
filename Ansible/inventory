@@ -1,0 +1,15 @@
+all:
+  hosts:
+    ansibleadmin:
+      ansible_host: "private ip of ansible server"
+    docker:
+      ansible_host: "private ip of docker server"
+
+
+  children:
+    ansible:
+      hosts:
+        ansibleadmin:
+    dockerhost:
+      hosts:
+        docker:
