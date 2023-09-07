@@ -1,0 +1,32 @@
+---
+- hosts: dockerhost
+  tasks:
+
+    - name: Stop a container
+      docker_container:
+        name: "your container name"
+        state: stopped
+      ignore_errors: yes
+
+    - name: remove container
+      docker_container:
+        name: "your container name"
+        state: absent
+      ignore_errors: yes
+
+    - name: Remove image
+      community.docker.docker_image:
+        state: absent
+        name: "your image name"
+        tag: latest
+      ignore_errors: yes
+
+
+    - name: run a container
+      docker_container:
+        name: "your container name"
+        image: "your image name"
+        state: started
+        restart: yes
+        ports:
+          - "8081:8080" #public external port : internal port

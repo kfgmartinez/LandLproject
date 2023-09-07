@@ -1,0 +1,81 @@
+- name: Install webserver packages
+  hosts: "your docker server"
+  become: true
+  #vars:
+  tasks:
+
+    - name: Install apache2 and docker
+      ansible.builtin.apt:
+        name: "{{item}}"
+        state: latest
+        update_cache: yes
+      loop:
+        - apache2
+        - git
+        - zip
+        - unzip
+
+    - name: Start apache2 service
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: restart apache2 service
+      ansible.builtin.service:
+        name: apache2
+        state: restarted
+        enabled: yes
+
+
+    - name: install dependencies for docker
+      apt:
+        name: "{{item}}"
+        state: present
+        update_cache: yes
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+
+    - name: GPG
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Deb packages repository docker
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+
+    - name: install docker
+      apt:
+        name: "{{item}}"
+        state: latest
+        update_cache: yes
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+
+    - name: start docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Update all packages to their latest version
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+
+    - name: apt install
+      command: apt install
+
+  handlers:
+    - name: restart docker
+      service:
+        name: docker
+        state: restarted
